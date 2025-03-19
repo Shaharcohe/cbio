@@ -94,9 +94,9 @@ class BayesianModel:
         gestational_age = row[const.feature_age]
         trisomy = row[const.feature_trisomy_type]
         if self.mode == "bayesian":
-            D = -2 * math.log(self._bayesian_likelihood(x, n, gestational_age, const.get_c(trisomy)))
+            D = 2 * math.log(self._bayesian_likelihood(x, n, gestational_age, const.get_c(trisomy)))
         elif self.mode == 'regular':
-            D = -2 * self._regular_likelihood(x, n, gestational_age, const.get_c(trisomy), True)
+            D = 2 * self._regular_likelihood(x, n, gestational_age, const.get_c(trisomy), True)
         return 1 if chi2.sf(D, df=1) < self._significance_level else 0
 
     def score(self, row) -> int:
